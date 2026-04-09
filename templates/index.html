@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Todo-App</title>
+  <meta name="viewport" content="width=device-width, intial-scale=1.0">
+</head>
+<body>
+  <h1>My Todo List</h1>
+  <form action="/add" method="POST">
+    <input type="text" name="title" placeholder="Add a new task..." required>
+    <button type="submit">Add Task</button>
+  </form>
+  <ul>
+    {% for task in tasks %}
+    <li>
+      {{ task['title'] }} — {{ 'Done' if task['done'] == 1 else 'Pending' }}
+      <a href="/toggle/{{ task['id'] }}">🔄 Toggle Done</a>
+      <form action="/delete/{{ task['id'] }}" method="POST" style="display:inline;">
+        <button type="submit">❌ Delete</button>
+      </form>
+    </li>
+    {% endfor %}
+  </ul>
+
+</body>
+</html>
