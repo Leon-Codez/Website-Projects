@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Halfstore</title>
+</head>
+<body>
+    <h1>Welcome to Halfstore</h1>
+    <p>Please enter your name to start shopping</p>
+
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+                <p style="color: red;">{{ message }}</p>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <form action="/" method="POST">
+        <input type="text" name="name" placeholder="Enter your name..." required>
+        <button type="submit">Start Shopping</button>
+    </form>
+</body>
+</html>

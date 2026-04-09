@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Halfstore - Shop</title>
+</head>
+<body>
+    <h1>Welcome, {{ customer_name }}!</h1>
+    <a href="/cart">🛒 View Cart</a> |
+    <a href="/logout">Logout</a>
+
+    <hr>
+
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+                <p style="color: red;">{{ message }}</p>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <h2>Available Items</h2>
+
+    {% for item in stocks %}
+    <div>
+        <strong>{{ item['item'] }}</strong> —
+        {% if item['stock'] > 0 %}
+            {{ item['stock'] }} left in stock
+            <form action="/add_to_cart/{{ item['id'] }}" method="POST" style="display:inline;">
+                <input type="number" name="quantity" value="1" min="1" max="{{ item['stock'] }}">
+                <button type="submit">Add to Cart</button>
+            </form>
+        {% else %}
+            <span style="color: red;">Out of Stock</span>
+        {% endif %}
+    </div>
+    <hr>
+    {% endfor %}
+
+</body>
+</html>
